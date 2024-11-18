@@ -11,8 +11,10 @@ public class BasicOperations {
 
         int suma = a + b;
         int resta = a - b;
+        int multiplicacio = a * b;
 
         System.out.println("Suma: " + suma);
         System.out.println("Resta: " + resta);
+        System.out.println("Multiplicació: " + multiplicacio);
     }
 }
