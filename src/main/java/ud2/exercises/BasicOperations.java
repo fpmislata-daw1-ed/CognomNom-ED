@@ -10,7 +10,9 @@ public class BasicOperations {
         int b = in.nextInt();
 
         int suma = a + b;
+        int resta = a - b;
 
         System.out.println("Suma: " + suma);
+        System.out.println("Resta: " + resta);
     }
 }
