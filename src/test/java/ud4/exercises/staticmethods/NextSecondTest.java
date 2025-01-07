@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class NextSecondTest {
     @Test
-    void given000000_shouldBe000001(){
+    void testAddSecond(){
         int hours = 0;
         int minutes = 0;
         int seconds = 0;
@@ -18,7 +18,7 @@ class NextSecondTest {
     }
 
     @Test
-    void given000001_shouldBe000002(){
+    void testAnotherAddSecond(){
         int hours = 0;
         int minutes = 0;
         int seconds = 1;
@@ -30,11 +30,35 @@ class NextSecondTest {
     }
 
     @Test
-    void given000059_shouldBe000100(){
+    void testNextMinute(){
         int hours = 0;
         int minutes = 0;
         int seconds = 59;
         String expected = "00:01:00";
+
+        String actual = NextSecond.nextSecond(hours, minutes, seconds);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testNextHour(){
+        int hours = 0;
+        int minutes = 59;
+        int seconds = 59;
+        String expected = "01:00:00";
+
+        String actual = NextSecond.nextSecond(hours, minutes, seconds);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testNextDay(){
+        int hours = 23;
+        int minutes = 59;
+        int seconds = 59;
+        String expected = "00:00:00";
 
         String actual = NextSecond.nextSecond(hours, minutes, seconds);
 
