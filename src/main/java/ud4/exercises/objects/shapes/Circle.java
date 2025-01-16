@@ -1,7 +1,7 @@
 package ud4.exercises.objects.shapes;
 
 public class Circle extends Shape {
-    private double radius;
+    private final double radius;
 
     public Circle(){
         this(0, 0, 1);
