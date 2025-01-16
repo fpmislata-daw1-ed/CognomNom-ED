@@ -28,4 +28,18 @@ public class Circle extends Shape {
     public double getArea(){
         return Math.PI * radius * radius;
     }
+
+    @Override
+    public double getPerimeter(){
+        return 2 * Math.PI * radius;
+    }
+
+    @Override
+    public boolean contains(double x, double y){
+        double d = Math.sqrt(
+                Math.pow(this.x - x, 2)
+                + Math.pow(this.y - y, 2)
+        );
+        return d <= radius;
+    }
 }
