@@ -12,24 +12,56 @@ class RobotTest {
     @Nested
     class ConstructorsTest {
         @Test
-        void defaultConstructor(){
-            Robot robot = new Robot();
+        void constructorSenseParametres(){
+            Robot r = new Robot();
 
             assertAll(
-                    () -> assertEquals(0, robot.getX()),
-                    () -> assertEquals(0, robot.getY()),
-                    () -> assertEquals(1, robot.getSpeed())
+                () -> assertEquals(0, r.getX()),
+                () -> assertEquals(0, r.getY()),
+                () -> assertEquals(1, r.getSpeed())
             );
         }
 
         @Test
-        void constructorWithParams(){
-            Robot robot = new Robot(1, 1);
+        void constructorAmbPosicio(){
+            Robot r = new Robot(1, 1);
 
             assertAll(
-                    () -> assertEquals(1, robot.getX()),
-                    () -> assertEquals(1, robot.getY()),
-                    () -> assertEquals(1, robot.getSpeed())
+                    () -> assertEquals(1, r.getX()),
+                    () -> assertEquals(1, r.getY()),
+                    () -> assertEquals(1, r.getSpeed())
+            );
+        }
+
+        @Test
+        void constructorAmbPosicioVelociat(){
+            Robot r = new Robot(1, 1, 5);
+
+            assertAll(
+                    () -> assertEquals(1, r.getX()),
+                    () -> assertEquals(1, r.getY()),
+                    () -> assertEquals(5, r.getSpeed())
+            );
+        }
+
+        @Test
+        void constructorAmbPosicioVelociatNegativa(){
+            Robot r = new Robot(1, 1, -5);
+
+            assertAll(
+                    () -> assertEquals(1, r.getX()),
+                    () -> assertEquals(1, r.getY()),
+                    () -> assertEquals(0, r.getSpeed())
+            );
+        }
+        @Test
+        void constructorAmbPosicioVelociatMajorMax(){
+            Robot r = new Robot(1, 1, 15);
+
+            assertAll(
+                    () -> assertEquals(1, r.getX()),
+                    () -> assertEquals(1, r.getY()),
+                    () -> assertEquals(10, r.getSpeed())
             );
         }
     }
@@ -37,10 +69,10 @@ class RobotTest {
     @ParameterizedTest
     @CsvSource({
             "0, 0.5",
-            "1.5, 2.0",
-            "10.0, 10.0",
+            "1, 1.5",
+            "10, 10",
     })
-    void testAccelerate(double initialSpeed, double expectedSpeed){
+    void accelerate(double initialSpeed, double expectedSpeed){
         Robot r = new Robot(0, 0, initialSpeed);
 
         r.accelerate();
@@ -50,11 +82,11 @@ class RobotTest {
 
     @ParameterizedTest
     @CsvSource({
-            "5.0, 4.5",
-            "1.5, 1.0",
-            "0.0, 0.0",
+            "10, 9.5",
+            "9.5, 9",
+            "0, 0",
     })
-    void testDecelerate(double initialSpeed, double expectedSpeed){
+    void decelerate(double initialSpeed, double expectedSpeed){
         Robot r = new Robot(0, 0, initialSpeed);
 
         r.decelerate();
@@ -62,21 +94,21 @@ class RobotTest {
         assertEquals(expectedSpeed, r.getSpeed());
     }
 
-
-    @ParameterizedTest
+    @ParameterizedTest(name="Robot(x={0},y={1},speed={2}).up() -> (x={3},y={4})")
     @CsvSource({
             "0,0,1,0,1",
-            "0,0,2,0,2",
-            "0,-1,1,0,0",
+            "0,1,1,0,2",
+            "0,1,2,0,3",
+            "-10,-10,2,-10,-8",
     })
-    void testUp(double initialX, double initalY, double speed, double expectedX, double expectedY){
-        Robot r = new Robot(initialX, initalY, speed);
+    void up(double x, double y, double speed, double expectedX, double expectedY){
+        Robot r = new Robot(x, y, speed);
 
         r.up();
 
         assertAll(
-                () -> assertEquals(expectedX, r.getX()),
-                () -> assertEquals(expectedY, r.getY())
+            () -> assertEquals(expectedX, r.getX()),
+            () -> assertEquals(expectedY, r.getY())
         );
     }
 }
